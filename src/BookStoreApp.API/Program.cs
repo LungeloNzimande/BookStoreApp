@@ -15,6 +15,15 @@ builder.Host.UseSerilog((ctx, lc) =>
     lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", 
+        b => b
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyOrigin());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
