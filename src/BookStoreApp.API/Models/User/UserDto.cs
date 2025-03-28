@@ -2,11 +2,8 @@
 
 namespace BookStoreApp.API.Models.User
 {
-    public class UserRegisterDto
+    public class UserDto : LoginUserDto
     {
-        [Required]
-        public string Email { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
