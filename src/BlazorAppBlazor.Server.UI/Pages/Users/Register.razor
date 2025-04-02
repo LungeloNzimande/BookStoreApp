@@ -1,5 +1,68 @@
-﻿<h3>Register</h3>
+﻿@page "/users/register"
+@using BlazorAppBlazor.Server.UI.Service.Base;
+@using System;
+@inject IClient httpClient;
+@inject NavigationManager _navManager;
+
+<h3>Create new account</h3>
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-danger">
+        <p>@message</p>
+    </div>
+}
+
+<div class="card-body">
+    <EditForm Model="RegistrationModel" OnValidSubmit="HandlRegistration">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <InputText class="form-control" @bind-Value="RegistrationModel.Email" />
+            <ValidationMessage For="@(() => RegistrationModel.Email)" />
+        </div>
+        <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <InputText class="form-control" @bind-Value="RegistrationModel.FirstName" />
+            <ValidationMessage For="@(() => RegistrationModel.FirstName)" />
+        </div>
+        <div class="form-group">
+            <label for="lastname">Lastname</label>
+            <InputText class="form-control" @bind-Value="RegistrationModel.LastName" />
+            <ValidationMessage For="@(() => RegistrationModel.LastName)" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <InputText typeof="password" class="form-control" @bind-Value="RegistrationModel.Password" />
+            <ValidationMessage For="@(() => RegistrationModel.Password)" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-blocked">Register</button>
+        </div>
+    </EditForm>
+</div>
 
 @code {
+    UserDto RegistrationModel = new UserDto
+    {
+        Role = "User"
+    };
+    string message = string.Empty;
 
+    private async Task HandlRegistration()
+    {
+        try
+        {
+            await httpClient.RegisterAsync(RegistrationModel);
+            _navManager.NavigateTo("/users/login");
+        }
+        catch (ApiException ex)
+        {
+            message = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
 }

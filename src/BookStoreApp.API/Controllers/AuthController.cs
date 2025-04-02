@@ -52,7 +52,7 @@ namespace BookStoreApp.API.Controllers
                 }
 
                 await userManager.AddToRoleAsync(user, "User");
-                return Accepted();
+                return Ok();
             }
             catch (Exception ex)
             {
