@@ -13,8 +13,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:7028"));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+builder.Services.AddScoped<APIAuthenticationProvider>();
 builder.Services.AddBlazoredLocalStorage();
+
 builder.Services.AddScoped<AuthenticationStateProvider>(p =>
                     p.GetRequiredService<APIAuthenticationProvider>());
 
