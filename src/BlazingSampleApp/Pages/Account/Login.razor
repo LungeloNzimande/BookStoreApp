@@ -1,7 +1,32 @@
 ﻿@page "/Account/Login"
+@using BlazingSampleApp.Data
+@using Blazored.FluentValidation
 
 <h3>Login</h3>
 
-@code {
+<div class="container-fluid">
+    <EditForm Model="loginRequest" OnValidSubmit="HandleLoginRequest">
+        <FluentValidationValidator />
 
+        <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email</label>
+            <InputText @bind-value="loginRequest.Email" class="form-control" id="loginEmail" aria-describedby="emailHelp"></InputText>
+            <ValidationMessage For="() => loginRequest.Email" />
+        </div>
+        <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <InputText type="password" @bind-value="loginRequest.Password" class="form-control" id="loginPassword"></InputText>
+            <ValidationMessage For="() => loginRequest.Password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    LoginRequest loginRequest = new LoginRequest();
+
+    private void HandleLoginRequest()
+    {
+
+    }
 }

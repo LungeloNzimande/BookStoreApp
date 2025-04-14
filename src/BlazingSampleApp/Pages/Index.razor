@@ -19,12 +19,12 @@
 </div>
 
 @code {
-    private List<Activity> activities = new();
+    private List<Product> activities = new();
     private const int MaxItems = 10; // Limit the number of items
 
     protected override async Task OnInitializedAsync()
     {
-        activities = (await SampleApiClient.ActivitiesAllAsync())
+        activities = (await SampleApiClient.GetAllProductsAsync())
             .ToList();
     }
 }
