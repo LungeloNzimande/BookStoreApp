@@ -267,13 +267,11 @@ namespace BlazingSampleApp.Services
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "")]
     public partial class SampleApiClient : ISampleApiClient
     {
-        private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public SampleApiClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public SampleApiClient(System.Net.Http.HttpClient httpClient)
         {
-            BaseUrl = baseUrl;
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
         }
@@ -283,12 +281,6 @@ namespace BlazingSampleApp.Services
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
-        }
-
-        public string BaseUrl
-        {
-            get { return _baseUrl; }
-            set { _baseUrl = value; }
         }
 
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
@@ -312,7 +304,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Activity>> ActivitiesAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Activities");
+            urlBuilder_.Append("api/v1/Activities");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -386,7 +378,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<Activity> ActivitiesPOSTAsync(Activity body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Activities");
+            urlBuilder_.Append("api/v1/Activities");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -466,7 +458,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Activities/{id}");
+            urlBuilder_.Append("api/v1/Activities/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -544,7 +536,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Activities/{id}");
+            urlBuilder_.Append("api/v1/Activities/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -625,7 +617,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Activities/{id}");
+            urlBuilder_.Append("api/v1/Activities/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -694,7 +686,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Author>> AuthorsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors");
+            urlBuilder_.Append("api/v1/Authors");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -768,7 +760,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<Author> AuthorsPOSTAsync(Author body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors");
+            urlBuilder_.Append("api/v1/Authors");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -848,7 +840,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("idBook");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors/authors/books/{idBook}");
+            urlBuilder_.Append("api/v1/Authors/authors/books/{idBook}");
             urlBuilder_.Replace("{idBook}", System.Uri.EscapeDataString(ConvertToString(idBook, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -926,7 +918,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors/{id}");
+            urlBuilder_.Append("api/v1/Authors/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1004,7 +996,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors/{id}");
+            urlBuilder_.Append("api/v1/Authors/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1085,7 +1077,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Authors/{id}");
+            urlBuilder_.Append("api/v1/Authors/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1154,7 +1146,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Book>> BooksAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Books");
+            urlBuilder_.Append("api/v1/Books");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1228,7 +1220,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task BooksPOSTAsync(Book body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Books");
+            urlBuilder_.Append("api/v1/Books");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1302,7 +1294,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Books/{id}");
+            urlBuilder_.Append("api/v1/Books/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1380,7 +1372,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Books/{id}");
+            urlBuilder_.Append("api/v1/Books/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1455,7 +1447,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Books/{id}");
+            urlBuilder_.Append("api/v1/Books/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1524,7 +1516,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CoverPhoto>> CoverPhotosAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos");
+            urlBuilder_.Append("api/v1/CoverPhotos");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1598,7 +1590,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<CoverPhoto> CoverPhotosPOSTAsync(CoverPhoto body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos");
+            urlBuilder_.Append("api/v1/CoverPhotos");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1678,7 +1670,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("idBook");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos/books/covers/{idBook}");
+            urlBuilder_.Append("api/v1/CoverPhotos/books/covers/{idBook}");
             urlBuilder_.Replace("{idBook}", System.Uri.EscapeDataString(ConvertToString(idBook, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1756,7 +1748,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos/{id}");
+            urlBuilder_.Append("api/v1/CoverPhotos/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1834,7 +1826,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos/{id}");
+            urlBuilder_.Append("api/v1/CoverPhotos/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1915,7 +1907,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/CoverPhotos/{id}");
+            urlBuilder_.Append("api/v1/CoverPhotos/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -1984,7 +1976,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> UsersAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Users");
+            urlBuilder_.Append("api/v1/Users");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2058,7 +2050,7 @@ namespace BlazingSampleApp.Services
         public async System.Threading.Tasks.Task UsersPOSTAsync(User body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Users");
+            urlBuilder_.Append("api/v1/Users");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2132,7 +2124,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Users/{id}");
+            urlBuilder_.Append("api/v1/Users/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -2204,7 +2196,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Users/{id}");
+            urlBuilder_.Append("api/v1/Users/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -2279,7 +2271,7 @@ namespace BlazingSampleApp.Services
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/Users/{id}");
+            urlBuilder_.Append("api/v1/Users/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;

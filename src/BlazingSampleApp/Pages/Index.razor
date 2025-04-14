@@ -5,12 +5,26 @@
 <PageTitle>Activities</PageTitle>
 
 <h1>Activities</h1>
+
 <hr />
 
+@* <Virtualize Items="activities" Context="activity" ItemSize="5">
+    <p>@activity.Title</p>
+</Virtualize> *@
+
+<div style="height:50px; overflow-y:scroll" tabindex="-1">
+    <Virtualize Items="activities" Context="activity" ItemSize="5">
+        <div class="flight-info">Flight @activity.Id</div>
+    </Virtualize>
+</div>
+
 @code {
-    protected override async void OnInitialized()
+    private List<Activity> activities = new();
+    private const int MaxItems = 10; // Limit the number of items
+
+    protected override async Task OnInitializedAsync()
     {
-        var sample = await SampleApiClient.ActivitiesAllAsync();
-        base.OnInitialized();
+        activities = (await SampleApiClient.ActivitiesAllAsync())
+            .ToList();
     }
 }

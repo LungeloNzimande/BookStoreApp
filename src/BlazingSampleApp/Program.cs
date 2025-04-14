@@ -14,7 +14,7 @@ namespace BlazingSampleApp
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddHttpClient<ISampleApiClient, SampleApiClient>(c => 
-                c.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
+                c.BaseAddress = new Uri("https://fakerestapi.azurewebsites.net"));
 
             var app = builder.Build();
 
