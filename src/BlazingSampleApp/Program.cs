@@ -1,6 +1,5 @@
 using BlazingSampleApp.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using BlazingSampleApp.Services;
 
 namespace BlazingSampleApp
 {
@@ -14,6 +13,8 @@ namespace BlazingSampleApp
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddHttpClient<ISampleApiClient, SampleApiClient>(c => 
+                c.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
 
             var app = builder.Build();
 
