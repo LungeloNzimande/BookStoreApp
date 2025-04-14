@@ -1,5 +1,7 @@
 using BlazingSampleApp.Data;
 using BlazingSampleApp.Services;
+using Blazored.Modal;
+using Blazored.Toast;
 
 namespace BlazingSampleApp
 {
@@ -15,6 +17,8 @@ namespace BlazingSampleApp
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddHttpClient<ISampleApiClient, SampleApiClient>(c => 
                 c.BaseAddress = new Uri("https://fakestoreapi.com"));
+            builder.Services.AddBlazoredToast();
+            builder.Services.AddBlazoredModal();
 
             var app = builder.Build();
 

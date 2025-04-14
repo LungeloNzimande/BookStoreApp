@@ -1,11 +1,15 @@
 ﻿@page "/"
 @using BlazingSampleApp.Services
+@using Blazored.Modal.Services
 @inject ISampleApiClient SampleApiClient
+@inject IToastService toastService
 
 <PageTitle>Activities</PageTitle>
 
 <h1>Activities</h1>
+<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
 
+<button @onclick="@(() => Modal.Show<Index>("My Movies"))">View Movies</button>
 <hr />
 
 @* <Virtualize Items="activities" Context="activity" ItemSize="5">
@@ -21,6 +25,8 @@
 @code {
     private List<Product> activities = new();
     private const int MaxItems = 10; // Limit the number of items
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
