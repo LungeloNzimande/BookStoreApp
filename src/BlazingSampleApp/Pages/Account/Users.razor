@@ -4,8 +4,8 @@
 @using Blazored.Modal.Services
 @inject ISampleApiClient SampleApiClient
 
-<div class="container">
-    <h3>Users</h3>
+<div class="container pt-5">
+    <h3 class="pb-4">Users</h3>
 
     @if (users == null)
     {
@@ -13,24 +13,28 @@
     }
     else
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-                    <tr>
-                        <td>@user.Username</td>
-                        <td>@user.Email</td>
-                        <td><button class="btn btn-link" @onclick="() => ViewDetails(user)"><i class="oi oi-eye"></i></button></td>
-                    </tr>
-                }
-            </tbody>
+        <table class="table table-striped table-hover table-bordered">
+           <thead class="thead-dark">
+               <tr>
+                   <th>Username</th>
+                   <th>Email</th>
+                   <th>Actions</th>
+               </tr>
+           </thead>
+           <tbody>
+               @foreach (var user in users)
+               {
+                   <tr>
+                       <td>@user.Username</td>
+                       <td>@user.Email</td>
+                       <td>
+                           <button class="btn btn-sm btn-primary" @onclick="() => ViewDetails(user)">
+                               <i class="oi oi-eye"></i> View
+                           </button>
+                       </td>
+                   </tr>
+               }
+           </tbody>
         </table>
     }
 </div>

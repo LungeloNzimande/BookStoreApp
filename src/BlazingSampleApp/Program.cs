@@ -15,7 +15,6 @@ namespace BlazingSampleApp
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddHttpClient<ISampleApiClient, SampleApiClient>(c => 
                 c.BaseAddress = new Uri("https://fakestoreapi.com"));
             builder.Services.AddBlazoredToast();

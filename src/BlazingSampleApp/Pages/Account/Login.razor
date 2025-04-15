@@ -1,33 +1,73 @@
 ﻿@page "/Account/Login"
 @using BlazingSampleApp.Data
+@using BlazingSampleApp.Services
 @using Blazored.FluentValidation
 
-<h1>Testing</h1>
-<h3>Login</h3>
 
-<div class="container-fluid">
-    <EditForm Model="loginRequest" OnValidSubmit="HandleLoginRequest">
-        <FluentValidationValidator />
+@inject NavigationManager NavManager
+@inject ISampleApiClient SampleApiClient
+@inject IToastService toastService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
-        <div class="mb-3">
-            <label for="loginEmail" class="form-label">Email</label>
-            <InputText @bind-value="loginRequest.Email" class="form-control" id="loginEmail" aria-describedby="emailHelp"></InputText>
-            <ValidationMessage For="() => loginRequest.Email" />
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card col-4 shadow">
+        <div class="card-body">
+            <h3 class="card-title text-center">Login</h3>
+            <EditForm Model="loginRequest" OnValidSubmit="HandleLoginRequest">
+                <FluentValidationValidator />
+
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Email</label>
+                    <InputText @bind-value="loginRequest.Email" class="form-control" id="loginEmail"></InputText>
+                    <ValidationMessage For="() => loginRequest.Email" />
+                </div>
+                <div class="mb-3">
+                    <label for="loginUsername" class="form-label">Username</label>
+                    <InputText @bind-value="loginRequest.Username" class="form-control" id="loginUsername"></InputText>
+                    <ValidationMessage For="() => loginRequest.Username" />
+                </div>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <InputText type="password" @bind-value="loginRequest.Password" class="form-control" id="loginPassword"></InputText>
+                    <ValidationMessage For="() => loginRequest.Password" />
+                </div>
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <p class="text-danger text-sm"><strong><i class="oi oi-circle-x"></i> Failed : </strong>@errorMessage</p>
+                }
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </EditForm>
         </div>
-        <div class="mb-3">
-            <label for="loginPassword" class="form-label">Password</label>
-            <InputText type="password" @bind-value="loginRequest.Password" class="form-control" id="loginPassword"></InputText>
-            <ValidationMessage For="() => loginRequest.Password" />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </EditForm>
+    </div>
 </div>
 
 @code {
     LoginRequest loginRequest = new LoginRequest();
+    string errorMessage = string.Empty;
 
-    private void HandleLoginRequest()
+    private async Task HandleLoginRequest()
     {
+        try
+        {
+            var results = await SampleApiClient.LoginUserAsync(new Services.Login
+                {
+                    Username = loginRequest.Username,
+                    Password = loginRequest.Password
+                });
+            if (results != null)
+            {
+                // sample login, storing the token 
+                await localStorage.SetItemAsStringAsync("token", results.Token);
 
+                toastService.ShowSuccess("Login successful!");
+                Thread.Sleep(2000);
+                NavManager.NavigateTo("/");
+            }
+        }
+        catch (Exception)
+        {
+            toastService.ShowError("Login failed!");
+            errorMessage = "Login failed!";
+        }
     }
 }
