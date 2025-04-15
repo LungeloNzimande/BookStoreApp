@@ -1,0 +1,57 @@
+﻿@page "/Account/Users"
+
+@using BlazingSampleApp.Services
+@using Blazored.Modal.Services
+@inject ISampleApiClient SampleApiClient
+
+<div class="container">
+    <h3>Users</h3>
+
+    @if (users == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in users)
+                {
+                    <tr>
+                        <td>@user.Username</td>
+                        <td>@user.Email</td>
+                        <td><button class="btn btn-link" @onclick="() => ViewDetails(user)"><i class="oi oi-eye"></i></button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<User> users = new();
+
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = (await SampleApiClient.GetAllUsersAsync())
+            .ToList();
+    }
+
+    private void ViewDetails(User user)
+    {
+        var parameters = new ModalParameters()
+        .Add(nameof(UserDetails.Username), user.Username)
+        .Add(nameof(UserDetails.Password), user.Password);
+
+        Modal.Show<UserDetails>("User details", parameters);
+    }
+}

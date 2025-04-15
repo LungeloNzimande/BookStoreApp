@@ -1,7 +1,10 @@
 ﻿@page "/Product/Details/{Id:int}"
 @using BlazingSampleApp.Services
+@using Newtonsoft.Json
+
 @inject IToastService toastService
 @inject ISampleApiClient SampleApiClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <div class="container">
     <div class="row pt-5 mt-5">
@@ -46,8 +49,46 @@
         product = (await SampleApiClient.GetProductByIdAsync(Id));
     }
 
-    private void AddToCart()
+    private async void AddToCart()
     {
+        var cart = await localStorage.GetItemAsync<string>("shoppingCart");
+        if (cart == null)
+        {
+            var newCart = new List<CartItem> { new CartItem { Product = product, Quantity = 1 } };
+            await localStorage.SetItemAsync("shoppingCart", JsonConvert.SerializeObject(newCart));
+        }
+        else
+        {
+            var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(cart) ?? new List<CartItem>();
+            var existingItem = cartItems.FirstOrDefault(item => item.Product.Id == product.Id);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity += 1;
+            }
+            else
+            {
+                cartItems.Add(new CartItem { Product = product, Quantity = 1 });
+            }
+
+            await localStorage.SetItemAsync("shoppingCart", JsonConvert.SerializeObject(cartItems));
+        }
         toastService.ShowSuccess("Product added to cart!");
+    }
+
+    private class CartItem
+    {
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
+    }
+}
+        }
+        toastService.ShowSuccess("Product added to cart!");
+    }
+
+    private class CartItem
+    {
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
     }
 }

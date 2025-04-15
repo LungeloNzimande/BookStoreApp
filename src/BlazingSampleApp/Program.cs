@@ -1,5 +1,6 @@
 using BlazingSampleApp.Data;
 using BlazingSampleApp.Services;
+using Blazored.LocalStorage;
 using Blazored.Modal;
 using Blazored.Toast;
 
@@ -19,6 +20,7 @@ namespace BlazingSampleApp
                 c.BaseAddress = new Uri("https://fakestoreapi.com"));
             builder.Services.AddBlazoredToast();
             builder.Services.AddBlazoredModal();
+            builder.Services.AddBlazoredLocalStorage();
 
             var app = builder.Build();
 
