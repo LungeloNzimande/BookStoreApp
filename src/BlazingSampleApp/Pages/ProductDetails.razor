@@ -1,0 +1,53 @@
+﻿@page "/Product/Details/{Id:int}"
+@using BlazingSampleApp.Services
+@inject IToastService toastService
+@inject ISampleApiClient SampleApiClient
+
+<div class="container">
+    <div class="row pt-5 mt-5">
+        <div class="col-8">
+            <h3>@product.Title</h3>
+            <div class="row pt-5">
+                <div class="col-md-4">
+                    <img src="@product.Image" class="img-fluid" />
+                </div>
+            </div>
+            <div class="mt-4">
+                <p>@product.Description</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <h3><span>R</span>@product.Price</h3>
+            <hr />
+            <button @onclick="AddToCart" class="btn btn-success btn-xl">Add to cart</button>
+            <div class="mt-4">
+                <p>
+                    <strong>Rating</strong>
+                    &nbsp; @rating
+                    (<i class="oi oi-star"></i>)
+                </p>
+                <p>Free Delivery Available</p>
+                <p>12 Years Limited Warranty</p>
+                <p class="text-capitalize"><strong>Category : </strong>@product.Category</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    Product product = new();
+
+    private int rating = new Random().Next(1, 6);
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = (await SampleApiClient.GetProductByIdAsync(Id));
+    }
+
+    private void AddToCart()
+    {
+        toastService.ShowSuccess("Product added to cart!");
+    }
+}

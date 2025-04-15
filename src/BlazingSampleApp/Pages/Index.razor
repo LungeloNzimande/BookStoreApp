@@ -4,33 +4,46 @@
 @inject ISampleApiClient SampleApiClient
 @inject IToastService toastService
 
-<PageTitle>Activities</PageTitle>
-
-<h1>Activities</h1>
-<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-
-<button @onclick="@(() => Modal.Show<Index>("My Movies"))">View Movies</button>
-<hr />
-
-@* <Virtualize Items="activities" Context="activity" ItemSize="5">
-    <p>@activity.Title</p>
-</Virtualize> *@
-
-<div style="height:50px; overflow-y:scroll" tabindex="-1">
-    <Virtualize Items="activities" Context="activity" ItemSize="5">
-        <div class="flight-info">Flight @activity.Id</div>
-    </Virtualize>
+<PageTitle>Shopping</PageTitle>
+<h2 class="p-2">Today's Deals</h2>
+<div class="row shaded pt-4 m-0 pb-4">
+    <h4 class="p-2">Top trending products</h4>
+    <div class="row d-flex justify-content-center">
+        @foreach (var product in trendingProducts)
+        {
+            <div class="col-sm-2">
+                <ItemCard Id="product.Id" Title=@product.Title Price=@product.Price Image=@product.Image />
+            </div>
+        }
+    </div>
 </div>
 
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <Virtualize Items="products" Context="product" ItemSize="5">
+            <div class="col-sm-3 mb-2">
+                <ItemCard Id="product.Id" Title=@product.Title Price=@product.Price Image=@product.Image />
+            </div>
+        </Virtualize>
+    </div>
+</div>
+
+
 @code {
-    private List<Product> activities = new();
+    private List<Product> trendingProducts = new();
+    private List<Product> products = new();
     private const int MaxItems = 10; // Limit the number of items
+
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        activities = (await SampleApiClient.GetAllProductsAsync())
+        products = (await SampleApiClient.GetAllProductsAsync())
+            .ToList();
+
+        trendingProducts = products
+            .Take(6)
             .ToList();
     }
 }

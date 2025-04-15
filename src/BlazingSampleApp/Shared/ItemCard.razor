@@ -1,0 +1,26 @@
+﻿@inject NavigationManager NavManager
+
+<div class="card" @onclick="ViewProduct">
+    <div class="card-body">
+        <div class="product-thumbnail">
+            <img class="img-fluid" src="@Image?.ToString()" alt="@Title" />
+        </div>
+    </div>
+    <div class="card-footer">
+        <p>@Title</p>
+        <p><strong><span>R</span>@Price</strong></p>
+        <p><span><i class="oi oi-star gold"></i></span></p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public float Price { get; set; }
+    [Parameter] public Uri Image { get; set; }
+
+    private void ViewProduct()
+    {
+        NavManager.NavigateTo($"/Product/Details/{Id}");
+    }
+}
